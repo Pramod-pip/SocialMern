@@ -4,8 +4,6 @@ export const LoginAPI = ({ email, password }) => {
   const user = users.find(
     (u) => u.email === email && u.password === password
   );
-  console.log('users', users);
-  console.log('userrrr', user);
   if (user) return true;
   return false;
 };
