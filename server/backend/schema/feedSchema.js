@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const feedSchema = new mongoose.Schema({
+    feed_email:{
+        type: String,
+        required: true
+    },
     feed_message:{
         type: String,
         default: ''
@@ -20,13 +24,13 @@ const feedSchema = new mongoose.Schema({
 
 })
 
-userSchema.virtual('id').get(function () {
+feedSchema.virtual('id').get(function () {
     return this._id.toHexString();
 })
 
-userSchema.set('toJSON', {
+feedSchema.set('toJSON', {
     virtuals: true,
 })
 
-exports.User = mongoose.model('User', userSchema);
-exports.userSchema = userSchema;
+exports.Feeds = mongoose.model('Feeds', feedSchema);
+exports.feedSchema = feedSchema;
