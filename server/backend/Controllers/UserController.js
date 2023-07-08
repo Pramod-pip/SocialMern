@@ -2,6 +2,7 @@ const { User } = require("../schema/userSchema");
 const bcrypt = require("bcryptjs");
 
 const createUser = async (req, res) => {
+  
   const emailExist = await User.find({ user_email: req.body.email });
 
   if (emailExist.length !== 0) {

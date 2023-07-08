@@ -1,25 +1,25 @@
-const { Feeds } = require('../schema/feedSchema');
+const { Feeds } = require("../schema/feedSchema");
 
-const insertFeed = async (req, res) => {
+const uploadFeed = async (req, res) => {
+  const filnames = req.files.map((filename) => {
+    return filename.filename;
+  });
 
-    let feed = new Feeds({
-      feed_email: req.body.email,
-      feed_message: req.body.message,
-      feed_images: req.body.images,
-      feed_likes: req.body.likes,
-      feed_comments: req.body.comments
-    });
-  
-    feed = await feed.save();
-  
-    if (!feed)
-      return res
-        .status(200)
-        .json({ status: 400, message: "Feed Not Saved" });
-  
-    res.status(200).json({ status: 200, message: "Feed Created" });
-  };
+  let feed = new Feeds({
+    feed_email: req.body.email,
+    feed_message: req.body.message,
+    feed_images: filnames,
+    feed_likes: 0,
+    feed_comments: "",
+  });
+  feed = await feed.save();
 
-  module.exports ={
-    insertFeed
-  }
+  if (!feed)
+    return res.status(200).json({ status: 400, message: "Feed Not Uploaded" });
+
+  res.status(200).json({ status: 200, message: "Feed Uploaded" });
+};
+
+module.exports = {
+  uploadFeed,
+};
