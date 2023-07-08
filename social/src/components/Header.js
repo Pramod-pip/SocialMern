@@ -12,23 +12,42 @@ import { Avatar, IconButton ,Button,
   Modal,
   Box, } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import axios from 'axios';
 
 const Header = () => {
   const user  = {};
   const [open, setOpen] = useState(false);
+  const [files, setFiles] = useState([]);
   const [message, setMessage] = useState('');
-  const [selectedFiles, setSelectedFiles] = useState([]);
 
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setSelectedFiles(files);
+  const handleFileChange = (event) => {
+    setFiles(event.target.files);
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    setMessage('');
-    setSelectedFiles([]);
-    handleClose();
+  const handleMessageChange = (event) => {
+    setMessage(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append('images', files[i]);
+    }
+    formData.append('message', message);
+    formData.append('email', 'pramodkoppu@gmail.com');
+
+    try {
+      await axios.post('http://localhost:5000/api/feeds', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log('Images and message uploaded successfully');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleOpen = () => {
@@ -88,13 +107,13 @@ const Header = () => {
             p: 4,
           }}
         >
-          <form onSubmit={handleFormSubmit}>
+          <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Typography variant="h6">Enter your message:</Typography>
                 <TextField
                   value={message}
-                  onChange={(e) => setMessage(e.target.value)}
+                  onChange={handleMessageChange}
                   fullWidth
                   multiline
                   rows={4}

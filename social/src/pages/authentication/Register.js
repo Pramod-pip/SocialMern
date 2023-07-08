@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState} from "react";
 import * as Yup from "yup";
 import {
   TextField,
@@ -20,6 +20,8 @@ import { useNavigate, Link } from "react-router-dom";
 const defaultTheme = createTheme();
 
 const Register = () => {
+  const [errors, setErrors] = useState('');
+
   const navigate = useNavigate();
   const initialValues = {
     fullName: "",
@@ -41,9 +43,16 @@ const Register = () => {
       .required("Confirm Password is required"),
   });
 
-  const handleSubmit = (values) => {
-    RegisterAPI(values);
-    navigate("/");
+  const handleSubmit = async (values) => {
+    const getData = await RegisterAPI(values);
+    if(getData.status !== 200){
+      setErrors(getData.message);
+    } else {
+      alert(getData.message);
+      navigate("/");
+    }
+    console.log('getData', getData);
+    // navigate("/");
   };
 
   return (
@@ -82,6 +91,15 @@ const Register = () => {
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign Up
+            </Typography>
+            <Typography
+              component="h4"
+              color="#FF2626"
+              style={{ padding: "1rem" }}
+            >
+              <Box component="span" fontWeight="fontWeightMedium">
+                {errors}
+              </Box>
             </Typography>
             <Box noValidate sx={{ mt: 1 }}>
               <Formik

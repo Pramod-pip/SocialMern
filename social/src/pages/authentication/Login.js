@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as Yup from 'yup';
+import React, { useState } from "react";
+import * as Yup from "yup";
 import {
   TextField,
   Avatar,
@@ -20,6 +20,7 @@ import { Link, useNavigate } from "react-router-dom";
 const defaultTheme = createTheme();
 
 const Login = () => {
+  const [errors, setErrors] = useState("");
 
   const navigate = useNavigate();
 
@@ -34,12 +35,17 @@ const Login = () => {
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
-    password: Yup.string()
-      .required("Password is required"),
+    password: Yup.string().required("Password is required"),
   });
 
-  const handleSubmit = (values) => {
-    LoginAPI(values) ? navigate("/feed") : alert('Entered Password is Wrong');
+  const handleSubmit = async (values) => {
+    const resData = await LoginAPI(values);
+    console.log("res", resData);
+    if (resData.status !== 200) {
+      setErrors(resData.message);
+    } else {
+      navigate("/feed");
+    }
   };
 
   return (
@@ -79,8 +85,17 @@ const Login = () => {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
+            <Typography
+              component="h4"
+              color="#FF2626"
+              style={{ padding: "1rem" }}
+            >
+              <Box component="span" fontWeight="fontWeightMedium">
+                {errors}
+              </Box>
+            </Typography>
             <Box noValidate sx={{ mt: 1 }}>
-            <Formik
+              <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
@@ -120,12 +135,7 @@ const Login = () => {
                         />
                       </div>
 
-                     
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                      >
+                      <Button type="submit" variant="contained" color="primary">
                         Login
                       </Button>
                       <Link to="/register"> Click Here to Register </Link>

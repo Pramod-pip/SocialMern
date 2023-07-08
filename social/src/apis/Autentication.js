@@ -1,18 +1,33 @@
-import users from "./MockAPI";
+import axios from "axios";
 
-export const LoginAPI = ({ email, password }) => {
-  const user = users.find(
-    (u) => u.email === email && u.password === password
-  );
-  if (user) return true;
-  return false;
+const URL_API = "http://localhost:5000/api/user/";
+
+export const LoginAPI = async ({ email, password }) => {
+  const url = `${URL_API}login`;
+  const headers = {
+    "Content-Type": "application/json",
+  };
+  const newUser = {
+    email,
+    password,
+  };
+  return await axios.post(url, newUser, { headers }).then((response) => {
+    return response.data;
+  });
 };
 
-export const RegisterAPI = ({ fullName, email, password }) => {
+export const RegisterAPI = async ({ fullName, email, password }) => {
   const newUser = {
     fullName,
     email,
     password,
   };
-  users.push(newUser);
+  const url = URL_API;
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  return await axios.post(url, newUser, { headers }).then((response) => {
+    return response.data;
+  });
 };
