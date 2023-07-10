@@ -50,6 +50,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // });
 
+app.use('/images', express.static('uploads'));
+
 app.use("/api/user", require("./Routes/UserRoutes"));
 app.use("/api/feeds", require("./Routes/FeedRoutes"));
 

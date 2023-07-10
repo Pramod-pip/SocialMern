@@ -20,6 +20,14 @@ const uploadFeed = async (req, res) => {
   res.status(200).json({ status: 200, message: "Feed Uploaded" });
 };
 
+const getFeeds = async (req, res) => {
+  const feedsList = await Feeds.find();
+  if(!feedsList) return res.status(200).json({status: 500, message: 'No Posts Available'})
+
+  res.status(200).send(feedsList);
+};
+
 module.exports = {
   uploadFeed,
+  getFeeds,
 };
