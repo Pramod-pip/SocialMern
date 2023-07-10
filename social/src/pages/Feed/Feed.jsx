@@ -1,37 +1,38 @@
+import React, { useState, useEffect } from 'react';
 import "./Feed.css";
 import Post from "../../components/Post";
-import { useState } from "react";
 import Header from "../../components/Header";
 import SideBar from "../../components/SideBar";
 import { posts } from "../../apis/MockPosts";
-const Feed = () => {
-  //  const [posts, setPosts] = useState([
-  //   {
-  //     data: {
-  //       id: 1,
-  //       profilePic: "Test",
-  //       message: "This is Test Message",
-  //       timestamp: "04-07-2023",
-  //       username: "Pramod Koppu",
-  //       image: "",
-  //     },
-  //   },
-  // ]);
+import { getFeeds } from '../../apis/FeedAPI';
 
+const Feed = () => {
+
+  const [Feedsdata, setFeedsData] = useState([]);
+
+  useEffect(() => {
+     getFeedData();
+  },[]);
+
+  const getFeedData = async () => {
+    const data = await getFeeds();
+    setFeedsData(data);
+  }
+ 
   return (
     <>
-      <Header />
+      <Header getFeedData={getFeedData} />
       <div className="app__body">
         <SideBar />
         <div className="feed">
-          {posts.map((post,idx) => (
+          {Feedsdata.map((post,idx) => (
             <Post
               key={idx}
-              profilePic={post?.imgage}
-              message={post?.message}
-              timestamp={post?.timestamp}
-              username={post?.username}
-              image={post?.profilePic}
+              profilePic={post?.feed_profile}
+              message={post?.feed_message}
+              // timestamp={post?.timestamp}
+              username={post?.feed_email}
+              image={post?.feed_images}
             />
           ))}
         </div>

@@ -14,7 +14,7 @@ import { Avatar, IconButton ,Button,
 import AddIcon from "@mui/icons-material/Add";
 import axios from 'axios';
 
-const Header = () => {
+const Header = (props) => {
   const user  = {};
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState([]);
@@ -48,6 +48,8 @@ const Header = () => {
     } catch (error) {
       console.error(error);
     }
+    setOpen(false);
+    props.getFeedData();
   };
 
   const handleOpen = () => {

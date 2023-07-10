@@ -77,3 +77,15 @@
         max-width: 95vw;
     }
 }
+
+
+.image-slider-container {
+    margin: 0 auto;
+    max-width: 800px; 
+  }
+  
+  .image-slider-container img {
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+  }
