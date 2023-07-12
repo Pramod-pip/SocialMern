@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/authentication/Login";
 import Register from "./pages/authentication/Register";
 import Feed from "./pages/Feed/Feed";
@@ -7,7 +7,7 @@ import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <div className="app">
         <Routes>
           <Route path="/" element={<Login />}></Route>
@@ -15,7 +15,7 @@ function App() {
           <Route path="/feed" element={<Feed />}></Route>
         </Routes>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 
