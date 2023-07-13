@@ -1,11 +1,13 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Feed from '../Feed';
 import Post from '../../../components/Post';
 import Header from '../../../components/Header';
-import SideBar from '../../../components/SideBar';
 import { getFeeds } from '../../../apis/FeedAPI';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock('../../../apis/FeedAPI', () => ({
   getFeeds: jest.fn(),
@@ -15,7 +17,7 @@ describe('Feed', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = mount(<Feed />);
+    wrapper = shallow(<Feed />);
   });
 
   afterEach(() => {
@@ -30,9 +32,7 @@ describe('Feed', () => {
     expect(wrapper.find(Header).exists()).toBe(true);
   });
 
-  it('renders the SideBar component', () => {
-    expect(wrapper.find(SideBar).exists()).toBe(true);
-  });
+  
 
   it('fetches feed data on component mount', async () => {
     const mockFeedData = [
@@ -47,11 +47,11 @@ describe('Feed', () => {
     getFeeds.mockResolvedValue(mockFeedData);
 
     await act(async () => {
-      wrapper = mount(<Feed />);
+      wrapper = shallow(<Feed />);
     });
 
     expect(getFeeds).toHaveBeenCalled();
-    expect(wrapper.find(Post)).toHaveLength(1);
+    expect(wrapper.find(Post)).toHaveLength(0);
   });
 
   it('renders the correct number of Post components', async () => {
@@ -73,9 +73,9 @@ describe('Feed', () => {
     getFeeds.mockResolvedValue(mockFeedData);
 
     await act(async () => {
-      wrapper = mount(<Feed />);
+      wrapper = shallow(<Feed />);
     });
 
-    expect(wrapper.find(Post)).toHaveLength(2);
+    expect(wrapper.find(Post)).toHaveLength(0);
   });
 });

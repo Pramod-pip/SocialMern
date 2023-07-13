@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import "./Feed.css";
 import Post from "../../components/Post";
 import Header from "../../components/Header";
-import SideBar from "../../components/SideBar";
-import { posts } from "../../apis/MockPosts";
 import { getFeeds } from '../../apis/FeedAPI';
 
 const Feed = () => {
@@ -23,7 +21,6 @@ const Feed = () => {
     <>
       <Header getFeedData={getFeedData} />
       <div className="app__body">
-        <SideBar />
         <div className="feed">
           {Feedsdata.map((post,idx) => (
             <Post

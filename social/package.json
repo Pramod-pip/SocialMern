@@ -40,7 +40,10 @@
     "collectCoverageFrom": [
       "!<rootDir>/src/reportWebVitals.js",
       "!<rootDir>/src/index.js",
-      "!<rootDir>/src/App.js"
+      "!<rootDir>/src/App.js",
+      "!<rootDir>/src/apis/MockAPI.js",
+      "!<rootDir>/src/apis/MockPosts.js"
+      
     ],
     "moduleNameMapper": {
       "axios": "axios/dist/node/axios.cjs"
@@ -59,6 +62,7 @@
     ]
   },
   "devDependencies": {
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0"
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
+    "mq-polyfill": "^1.1.8"
   }
 }
