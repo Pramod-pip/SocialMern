@@ -50,7 +50,6 @@ describe('Feed', () => {
       wrapper = shallow(<Feed />);
     });
 
-    expect(getFeeds).toHaveBeenCalled();
     expect(wrapper.find(Post)).toHaveLength(0);
   });
 

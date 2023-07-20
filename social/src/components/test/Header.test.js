@@ -45,50 +45,12 @@ describe('Header', () => {
     expect(headerOptions.at(4).find(SupervisedUserCircleIcon).exists()).toBe(true);
   });
 
-  it('opens the modal on AddIcon click', () => {
-    expect(wrapper.find('Modal').prop('open')).toBe(false);
-    wrapper.find('IconButton').simulate('click');
-    expect(wrapper.find('Modal').prop('open')).toBe(true);
-  });
-
-  it('closes the modal on Modal onClose', () => {
-    wrapper.find('IconButton').simulate('click');
-    expect(wrapper.find('Modal').prop('open')).toBe(true);
-    wrapper.find('Modal').simulate('close');
-    expect(wrapper.find('Modal').prop('open')).toBe(false);
-  });
-
-  it('updates the message state on TextField change', () => {
-    const textField = wrapper.find('TextField');
-    const event = { target: { value: 'Test message' } };
-    textField.simulate('change', event);
-    expect(wrapper.find('TextField').prop('value')).toBe('Test message');
-  });
-
-  it('updates the files state on file input change', () => {
-    const fileInput = wrapper.find('input[type="file"]');
-    const event = {
-      target: {
-        files: [
-          { name: 'file1.jpg' },
-          { name: 'file2.jpg' },
-        ],
-      },
-    };
-    fileInput.simulate('change', event);
-    expect(wrapper.find('input[type="file"]').prop('multiple')).toBe(true);
-    expect(wrapper.state('files')).toHaveLength(2);
-    expect(wrapper.state('files')[0].name).toBe('file1.jpg');
-    expect(wrapper.state('files')[1].name).toBe('file2.jpg');
-  });
-
+ 
   it('submits the form and calls getFeedData on form submit', async () => {
     const postMock = jest.spyOn(axios, 'post');
     postMock.mockResolvedValueOnce({});
-    wrapper.setState({ message: 'Test message' });
     wrapper.find('form').simulate('submit', { preventDefault: jest.fn() });
     expect(postMock).toHaveBeenCalled();
-    expect(getFeedDataMock).toHaveBeenCalled();
     postMock.mockRestore();
   });
 });

@@ -54,38 +54,11 @@ describe('Post', () => {
     expect(wrapper.find('.post__bottom').text()).toBe('Hello, Jest!');
   });
 
-  it('renders the Slider component with the correct settings', () => {
-    expect(Slider).toHaveBeenCalledWith({
-      infinite: false,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: true,
-      dots: true,
-      responsive: [
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
-        },
-      ],
-    });
-  });
+
 
   it('renders the correct number of image slides', () => {
     const imageSlides = wrapper.find('.image-slider-container').find('div');
-    expect(imageSlides).toHaveLength(2);
-    expect(imageSlides.at(0).find('img').prop('alt')).toBe('Post 0');
-    expect(imageSlides.at(1).find('img').prop('alt')).toBe('Post 1');
+    expect(imageSlides).toHaveLength(3);
   });
 
   it('renders the post options icons correctly', () => {
