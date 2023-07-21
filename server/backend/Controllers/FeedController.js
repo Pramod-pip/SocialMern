@@ -32,8 +32,30 @@ const deleteFeed = async (req, res) => {
   if(feedDelete) return res.status(200).json({status: 200, message: 'Post Deleted Succesfully'})
 };
 
+const updateFeed = async (req, res) => {
+  const filnames = req.files.map((filename) => {
+    return filename.filename;
+  });
+
+  let feed = {
+    feed_email: req.body.email,
+    feed_message: req.body.message,
+    feed_images: filnames,
+    feed_likes: 0,
+    feed_comments: "",
+  };
+  feed = await Feeds.findByIdAndUpdate(req.body.id, feed, {
+    new: true,
+  })
+  if (!feed)
+    return res.status(200).json({ status: 400, message: "Feed Not Uploaded" });
+
+  res.status(200).json({ status: 200, message: "Feed Uploaded" });
+};
+
 module.exports = {
   uploadFeed,
   getFeeds,
   deleteFeed,
+  updateFeed,
 };

@@ -10,7 +10,7 @@ const Feed = () => {
 
   useEffect(() => {
      getFeedData();
-  },[Feedsdata]);
+  },[]);
 
   const getFeedData = async () => {
     const data = await getFeeds();

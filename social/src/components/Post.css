@@ -93,3 +93,37 @@
 .morevert {
     margin-left: auto;
 }
+
+
+.file-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .file-preview-item {
+    margin: 8px;
+    position: relative;
+  }
+  
+  .delete-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .image-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
