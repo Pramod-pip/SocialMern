@@ -10,7 +10,7 @@ const Feed = () => {
 
   useEffect(() => {
      getFeedData();
-  },[]);
+  },[Feedsdata]);
 
   const getFeedData = async () => {
     const data = await getFeeds();
@@ -25,6 +25,8 @@ const Feed = () => {
           {Feedsdata.map((post,idx) => (
             <Post
               key={idx}
+              id={post?.id}
+              getFeedData={getFeedData}
               profilePic={post?.feed_profile}
               message={post?.feed_message}
               // timestamp={post?.timestamp}

@@ -12,8 +12,9 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { deleteFeed } from "../apis/FeedAPI";
 
-const Post = ({ profilePic, image, username, timestamp, message }) => {
+const Post = ({ id, profilePic, image, username, timestamp, message, getFeedData }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenuOpen = (event) => {
@@ -22,6 +23,17 @@ const Post = ({ profilePic, image, username, timestamp, message }) => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleDeletePost = async () => {
+    setAnchorEl(null);
+    const response = await deleteFeed(id);
+    if(response.status === '200') {
+      alert(response.message);
+      getFeedData();
+    } else {
+      alert(response.message);
+    }
   };
   const settings = {
     infinite: false,
@@ -70,7 +82,7 @@ const Post = ({ profilePic, image, username, timestamp, message }) => {
             onClose={handleMenuClose}
           >
             <MenuItem onClick={handleMenuClose}><span style={{paddingRight: '0.4rem'}}><EditIcon /></span> Edit</MenuItem>
-            <MenuItem onClick={handleMenuClose}><span style={{paddingRight: '0.4rem'}}><DeleteIcon /></span> Delete</MenuItem>
+            <MenuItem onClick={handleDeletePost}><span style={{paddingRight: '0.4rem'}}><DeleteIcon /></span> Delete</MenuItem>
           </Menu>
           </div>
       </div>

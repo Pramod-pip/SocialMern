@@ -27,7 +27,13 @@ const getFeeds = async (req, res) => {
   res.status(200).send(feedsList);
 };
 
+const deleteFeed = async (req, res) => {
+  const feedDelete = await Feeds.findByIdAndDelete(req.body.feed_id);
+  if(feedDelete) return res.status(200).json({status: 200, message: 'Post Deleted Succesfully'})
+};
+
 module.exports = {
   uploadFeed,
   getFeeds,
+  deleteFeed,
 };

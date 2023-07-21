@@ -10,3 +10,9 @@ export const getFeeds = async () => {
     return response.data;
   });
 };
+
+export const deleteFeed = async (feed_id) => {
+  return await axios.post(`${URL_API_FEEDS}deleteFeed`, {feed_id}).then((response) => {
+    return response.data;
+   });
+};
