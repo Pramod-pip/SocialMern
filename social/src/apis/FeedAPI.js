@@ -16,3 +16,9 @@ export const deleteFeed = async (feed_id) => {
     return response.data;
    });
 };
+
+export const deleteImgFeed = async (feed_id, image) => {
+  return await axios.post(`${URL_API_FEEDS}updateImgFeed`, {feed_id, image}).then((response) => {
+    return response.data;
+   });
+};

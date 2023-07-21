@@ -53,9 +53,23 @@ const updateFeed = async (req, res) => {
   res.status(200).json({ status: 200, message: "Feed Uploaded" });
 };
 
+const updateDeleteImg =  async (req, res) => {
+  let feedDelete = await Feeds.findById(req.body.feed_id);
+  feedDelete.feed_images = feedDelete.feed_images.filter( img => img !== req.body.image)
+  console.log('del', feedDelete);
+  feedDelete = await Feeds.findByIdAndUpdate(req.body.feed_id, feedDelete, {
+    new: true,
+  })
+  if (!feedDelete)
+    return res.status(200).json({ status: 400, message: "Feed Not Uploaded" });
+
+  res.status(200).json({ status: 200, message: "Feed Uploaded" });
+};
+
 module.exports = {
   uploadFeed,
   getFeeds,
   deleteFeed,
   updateFeed,
+  updateDeleteImg,
 };

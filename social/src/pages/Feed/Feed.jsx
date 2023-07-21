@@ -3,6 +3,7 @@ import "./Feed.css";
 import Post from "../../components/Post";
 import Header from "../../components/Header";
 import { getFeeds } from '../../apis/FeedAPI';
+import { deleteImgFeed } from '../../apis/FeedAPI';
 
 const Feed = () => {
 
@@ -16,6 +17,11 @@ const Feed = () => {
     const data = await getFeeds();
     setFeedsData(data);
   }
+  
+  const handleImageDelete = async (id, img) => {
+    const response = await deleteImgFeed(id, img);
+    setFeedsData(response);
+ };
  
   return (
     <>
@@ -29,6 +35,7 @@ const Feed = () => {
               getFeedData={getFeedData}
               profilePic={post?.feed_profile}
               message={post?.feed_message}
+              handleImageDelete={handleImageDelete}
               // timestamp={post?.timestamp}
               username={post?.feed_email}
               image={post?.feed_images}

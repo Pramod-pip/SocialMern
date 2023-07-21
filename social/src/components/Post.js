@@ -27,7 +27,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { deleteFeed } from "../apis/FeedAPI";
+import { deleteFeed, deleteImgFeed } from "../apis/FeedAPI";
 import axios from "axios";
 
 const Post = ({
@@ -38,6 +38,7 @@ const Post = ({
   timestamp,
   message,
   getFeedData,
+  handleImageDelete,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -57,7 +58,7 @@ const Post = ({
     event.preventDefault();
 
     const formData = new FormData();
-    
+
     for (let i = 0; i < files.length; i++) {
       formData.append("images", files[i]);
     }
@@ -88,7 +89,7 @@ const Post = ({
     setOpen(false);
   };
 
-  const handleImageDelete = () => {};
+  
 
   const handleDialogOpen = () => {
     setAnchorEl(null);
@@ -272,7 +273,7 @@ const Post = ({
                       <button
                         type="button"
                         className="delete-button"
-                        onClick={() => handleImageDelete(index)}
+                        onClick={() => handleImageDelete(img)}
                       >
                         X
                       </button>
