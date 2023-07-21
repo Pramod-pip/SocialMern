@@ -6,6 +6,8 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -67,8 +69,8 @@ const Post = ({ profilePic, image, username, timestamp, message }) => {
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
           >
-            <MenuItem onClick={handleMenuClose}>Edit</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Delete</MenuItem>
+            <MenuItem onClick={handleMenuClose}><span style={{paddingRight: '0.4rem'}}><EditIcon /></span> Edit</MenuItem>
+            <MenuItem onClick={handleMenuClose}><span style={{paddingRight: '0.4rem'}}><DeleteIcon /></span> Delete</MenuItem>
           </Menu>
           </div>
       </div>
