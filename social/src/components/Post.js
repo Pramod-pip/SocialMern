@@ -1,15 +1,26 @@
-import { Avatar } from "@mui/material";
+import {useState} from "react"
+import { Avatar, Menu, MenuItem, IconButton } from "@mui/material";
 import "./Post.css";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Post = ({ profilePic, image, username, timestamp, message }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
   const settings = {
     infinite: false,
     speed: 500,
@@ -39,14 +50,27 @@ const Post = ({ profilePic, image, username, timestamp, message }) => {
       <div className="post__top">
         <Avatar src={profilePic} className="post__avatar" />
         <div className="post__topInfo">
-          <h3>{username}</h3>
-          <p>
-            {timestamp}
-            {/* {new Date(timestamp?.toDate()).toLocaleString("en-US", {
-              timeZone: "Asia/Kolkata",
-            })} */}
-          </p>
+          <h3>{username}</h3> 
         </div>
+        <div className="morevert">
+        <IconButton
+            aria-controls="post-menu"
+            aria-haspopup="true"
+            onClick={handleMenuOpen}
+          >
+            <MoreVertIcon />
+          </IconButton>
+          <Menu
+            id="post-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem onClick={handleMenuClose}>Edit</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Delete</MenuItem>
+          </Menu>
+          </div>
       </div>
 
       <div className="post__bottom">
@@ -54,7 +78,6 @@ const Post = ({ profilePic, image, username, timestamp, message }) => {
       </div>
 
       <div className="post__image">
-        {console.log("image", image)}
         <div className="image-slider-container">
           <Slider {...settings}>
             {
