@@ -1,5 +1,14 @@
 import {useState} from "react"
-import { Avatar, Menu, MenuItem, IconButton } from "@mui/material";
+import { Avatar, 
+  Menu, 
+  MenuItem, 
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  IconButton,
+  Typography, } from "@mui/material";
 import "./Post.css";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -15,7 +24,25 @@ import "slick-carousel/slick/slick-theme.css";
 import { deleteFeed } from "../apis/FeedAPI";
 
 const Post = ({ id, profilePic, image, username, timestamp, message, getFeedData }) => {
+  
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleDialogOpen = () => {
+    setAnchorEl(null);
+    setIsDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+  };
+
+  // const handleDeleteConfirm = () => {
+  //   // Perform the delete action here
+  //   console.log("Delete confirmed!");
+  //   // Add your logic here to delete the record or perform the desired action
+  //   handleDialogClose();
+  // };
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -25,7 +52,7 @@ const Post = ({ id, profilePic, image, username, timestamp, message, getFeedData
     setAnchorEl(null);
   };
 
-  const handleDeletePost = async () => {
+  const handleDeleteConfirm = async () => {
     setAnchorEl(null);
     const response = await deleteFeed(id);
     if(response.status === '200') {
@@ -34,6 +61,7 @@ const Post = ({ id, profilePic, image, username, timestamp, message, getFeedData
     } else {
       alert(response.message);
     }
+    handleDialogClose();
   };
   const settings = {
     infinite: false,
@@ -82,10 +110,26 @@ const Post = ({ id, profilePic, image, username, timestamp, message, getFeedData
             onClose={handleMenuClose}
           >
             <MenuItem onClick={handleMenuClose}><span style={{paddingRight: '0.4rem'}}><EditIcon /></span> Edit</MenuItem>
-            <MenuItem onClick={handleDeletePost}><span style={{paddingRight: '0.4rem'}}><DeleteIcon /></span> Delete</MenuItem>
+            <MenuItem onClick={handleDialogOpen}><span style={{paddingRight: '0.4rem'}}><DeleteIcon /></span> Delete</MenuItem>
           </Menu>
           </div>
       </div>
+      <Dialog open={isDialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Are you sure you want to delete this post?
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDeleteConfirm} color="secondary" variant="contained">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       <div className="post__bottom">
         <p>{message}</p>
