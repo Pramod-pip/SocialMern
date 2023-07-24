@@ -27,7 +27,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { deleteFeed, deleteImgFeed } from "../apis/FeedAPI";
+import { deleteFeed } from "../apis/FeedAPI";
 import axios from "axios";
 
 const Post = ({
@@ -63,7 +63,7 @@ const Post = ({
       formData.append("images", files[i]);
     }
     formData.append("message", mess);
-    formData.append("id", id);
+    formData.append("feed_id", id);
     formData.append("email", "pramodkoppu@gmail.com");
 
     try {
