@@ -111,7 +111,7 @@ const Post = ({
   const handleDeleteConfirm = async () => {
     setAnchorEl(null);
     const response = await deleteFeed(id);
-    if (response.status === "200") {
+    if (response.status === 200) {
       alert(response.message);
       getFeedData();
     } else {
@@ -273,7 +273,7 @@ const Post = ({
                       <button
                         type="button"
                         className="delete-button"
-                        onClick={() => handleImageDelete(img)}
+                        onClick={() => handleImageDelete(id,img)}
                       >
                         X
                       </button>

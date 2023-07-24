@@ -19,8 +19,8 @@ const Feed = () => {
   }
   
   const handleImageDelete = async (id, img) => {
-    const response = await deleteImgFeed(id, img);
-    setFeedsData(response);
+    await deleteImgFeed(id, img);
+    getFeedData();
  };
  
   return (
@@ -28,7 +28,7 @@ const Feed = () => {
       <Header getFeedData={getFeedData} />
       <div className="app__body">
         <div className="feed">
-          {Feedsdata.map((post,idx) => (
+          {Feedsdata?.map((post,idx) => (
             <Post
               key={idx}
               id={post?.id}
