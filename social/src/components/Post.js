@@ -29,6 +29,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { deleteFeed } from "../apis/FeedAPI";
 import axios from "axios";
+import { ShowImages } from "./ShowImages";
 
 const Post = ({
   id,
@@ -119,6 +120,7 @@ const Post = ({
     }
     handleDialogClose();
   };
+
   const settings = {
     infinite: false,
     speed: 500,
@@ -205,18 +207,7 @@ const Post = ({
 
       <div className="post__image">
         <div className="image-slider-container">
-          <Slider {...settings}>
-            {image.map((img, idx) => {
-              return (
-                <div key={idx}>
-                  <img
-                    src={`http://localhost:5000/images/${img}`}
-                    alt={`Post ${idx}`}
-                  />
-                </div>
-              );
-            })}
-          </Slider>
+          {ShowImages(image)}
         </div>
       </div>
 
