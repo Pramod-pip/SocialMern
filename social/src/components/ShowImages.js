@@ -53,6 +53,11 @@ export const ShowImages = (images) => {
    const openDialog = () => {
     return(
     <Dialog open={isModalOpen} onClose={closeModal}>
+    <DialogActions>
+      <Button onClick={closeModal} color="primary">
+        X
+      </Button>
+    </DialogActions>
     <DialogContent style={{overflow: 'hidden'}}>
       { images.length < 2 ?
       <img src={`${imgUrl}${images[0]}`} alt="primary"/>
@@ -66,11 +71,7 @@ export const ShowImages = (images) => {
       </div>
       }
     </DialogContent>
-    <DialogActions>
-      <Button onClick={closeModal} color="primary">
-        Close
-      </Button>
-    </DialogActions>
+    
   </Dialog>
     )
    }
