@@ -13,6 +13,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 export const ShowImages = (images) => {
 
+    const imgUrl = 'http://localhost:5000/images/';
+
     const [isModalOpen, setModalOpen] = useState(false);
 
     const settings = {
@@ -51,16 +53,18 @@ export const ShowImages = (images) => {
    const openDialog = () => {
     return(
     <Dialog open={isModalOpen} onClose={closeModal}>
-    <DialogContent>
-      <DialogContentText>
+    <DialogContent style={{overflow: 'hidden'}}>
       { images.length < 2 ?
-      <img src={`http://localhost:5000/images/${images[0]}`} alt="primary"/>
+      <img src={`${imgUrl}${images[0]}`} alt="primary"/>
       :
+      <div style={{width: "300px", height: 'auto'}}>
       <Slider {...settings}>
-        {images.map((image,idx)=> { return(  <img style={{display: 'inline-block'}} src={`http://localhost:5000/images/${image}`} key={idx} alt="primary"/>)})}
+        
+        {images.map((image,idx)=> { return(  <img style={{display: 'inline-block'}} src={`${imgUrl}${image}`} key={idx} alt="primary"/>)})}
+
       </Slider>
+      </div>
       }
-      </DialogContentText>
     </DialogContent>
     <DialogActions>
       <Button onClick={closeModal} color="primary">
@@ -87,7 +91,7 @@ export const ShowImages = (images) => {
                   openModal();
                 }}
               >
-                <img src={`http://localhost:5000/images/${images[0]}`} alt="primary"/>
+                <img src={`${imgUrl}${images[0]}`} alt="primary"/>
               </div>
             );
           }
@@ -116,7 +120,7 @@ export const ShowImages = (images) => {
                             openModal();
                           }}
                         >
-                           <img src={`http://localhost:5000/images/${image}`} alt="primary"/>
+                           <img src={`${imgUrl}${image}`} alt="primary"/>
                         </Grid>
                       </Grid>
                     );
@@ -140,10 +144,10 @@ export const ShowImages = (images) => {
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "center",
                     }}
-                    // onDoubleClick={() => {
-                    //   setShowImage(images[0]);
-                    // }}
-                  > <img src={`http://localhost:5000/images/${images[0]}`} alt="primary"/></Grid>
+                    onDoubleClick={() => {
+                        openModal();
+                      }}
+                  > <img src={`${imgUrl}${images[0]}`} alt="primary"/></Grid>
                 </Grid>{" "}
                 <Grid item md={6} lg={6} xl={6} xs={6} sm={6}>
                   {images.map((image, index) => {
@@ -160,11 +164,11 @@ export const ShowImages = (images) => {
                               backgroundRepeat: "no-repeat",
                               backgroundPosition: "center",
                             }}
-                            // onDoubleClick={() => {
-                            //   setShowImage(image);
-                            // }}
+                            onDoubleClick={() => {
+                                openModal();
+                              }}
                           >
-                            <img src={`http://localhost:5000/images/${image}`} height="245px" alt="primary"/>
+                            <img src={`${imgUrl}${image}`} height="245px" alt="primary"/>
                           </Grid>
                         );
                       }
@@ -190,10 +194,10 @@ export const ShowImages = (images) => {
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "center",
                     }}
-                    // onDoubleClick={() => {
-                    //   setShowImage(images[0]);
-                    // }}
-                  > <img src={`http://localhost:5000/images/${images[0]}`} alt="primary"/></Grid>
+                    onDoubleClick={() => {
+                        openModal();
+                      }}
+                  > <img src={`${imgUrl}${images[0]}`} alt="primary"/></Grid>
                 </Grid>{" "}
                 <Grid item md={6} lg={6} xl={6} xs={6} sm={6}>
                   {images.map((image, index) => {
@@ -211,14 +215,14 @@ export const ShowImages = (images) => {
                               backgroundPosition: "center",
                               position: 'relative',
                             }}
-                            // onDoubleClick={() => {
-                            //   setShowImage(image);
-                            // }}
+                            onDoubleClick={() => {
+                                openModal();
+                              }}
                           >
-                            { index ===1 && <img src={`http://localhost:5000/images/${image}`} height="245px" alt="primary"/>}
+                            { index ===1 && <img src={`${imgUrl}${image}`} height="245px" alt="primary"/>}
                             {index === 2 &&
                             <>
-                            <img src={`http://localhost:5000/images/${image}`} style={{filter: "brightness(25%)"}} height="245px" alt="primary"/>
+                            <img src={`${imgUrl}${image}`} style={{filter: "brightness(25%)"}} height="245px" alt="primary"/>
                              <span className='overlayText'> + {images.length - 3} More</span>
                              </>
                              }

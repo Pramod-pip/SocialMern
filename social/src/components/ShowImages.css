@@ -6,3 +6,12 @@
     color: white;
     font-weight: 700;
 }
+
+.slick-prev {
+    left: 2% !important;
+    z-index: 1;
+  }
+  .slick-next {
+    right: 2% !important;
+    z-index: 1;
+  }
