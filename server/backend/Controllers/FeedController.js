@@ -38,13 +38,14 @@ const updateFeed = async (req, res) => {
   const filnames = req.files.map((filename) => {
     return filename.filename;
   });
+
   feedDelete.feed_images.map((img) => filnames.push(img));
   
   let feed = {
     feed_email: req.body.email,
     feed_message: req.body.message,
     feed_images: filnames,
-    feed_likes: 0,
+    feed_likes: feedDelete.feed_likes,
     feed_comments: "",
   };
   feed = await Feeds.findByIdAndUpdate(req.body.feed_id, feed, {
