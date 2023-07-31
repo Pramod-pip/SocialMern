@@ -22,3 +22,9 @@ export const deleteImgFeed = async (feed_id, image) => {
     return response.data;
    });
 };
+
+export const updateLikeApi = async (feed_id) => {
+  return await axios.post(`${URL_API_FEEDS}like`, {feed_id}).then((response) => {
+    return response.data;
+  });
+};

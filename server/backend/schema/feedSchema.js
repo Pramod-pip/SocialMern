@@ -14,7 +14,7 @@ const feedSchema = new mongoose.Schema({
         default: []
     },
     feed_likes:{
-        type: String,
+        type: Number,
         default: 0,
     },
     feed_comments:{

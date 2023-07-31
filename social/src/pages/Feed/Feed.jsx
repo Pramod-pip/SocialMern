@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./Feed.css";
 import Post from "../../components/Post";
 import Header from "../../components/Header";
-import { getFeeds } from '../../apis/FeedAPI';
+import { getFeeds, updateLikeApi } from '../../apis/FeedAPI';
 import { deleteImgFeed } from '../../apis/FeedAPI';
 
 const Feed = () => {
@@ -22,6 +22,11 @@ const Feed = () => {
     await deleteImgFeed(id, img);
     getFeedData();
  };
+
+ const handleLikes = async (id) => {
+  await updateLikeApi(id);
+  getFeedData();
+ }
  
   return (
     <>
@@ -37,6 +42,8 @@ const Feed = () => {
               message={post?.feed_message}
               handleImageDelete={handleImageDelete}
               // timestamp={post?.timestamp}
+              likes={post?.feed_likes}
+              handleLikes={handleLikes}
               username={post?.feed_email}
               image={post?.feed_images}
             />

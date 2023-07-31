@@ -1,8 +1,6 @@
 import React, {useState} from 'react'
-import { Grid, IconButton, Dialog, Paper } from "@mui/material";
-import DialogTitle from '@mui/material/DialogTitle';
+import { Grid, Dialog } from "@mui/material";
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import './ShowImages.css';
@@ -59,17 +57,17 @@ export const ShowImages = (images) => {
       </Button>
     </DialogActions>
     <DialogContent style={{overflow: 'hidden'}}>
+    <div style={{width: "450px", height: 'auto'}}>
       { images.length < 2 ?
-      <img src={`${imgUrl}${images[0]}`} alt="primary"/>
+      <img src={`${imgUrl}${images[0]}`} alt="primary" style={{width: '100%'}}/>
       :
-      <div style={{width: "300px", height: 'auto'}}>
       <Slider {...settings}>
         
         {images.map((image,idx)=> { return(  <img style={{display: 'inline-block'}} src={`${imgUrl}${image}`} key={idx} alt="primary"/>)})}
 
       </Slider>
-      </div>
       }
+      </div>
     </DialogContent>
     
   </Dialog>

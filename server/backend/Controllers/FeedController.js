@@ -68,10 +68,18 @@ const updateDeleteImg =  async (req, res) => {
   res.status(200).json({ status: 200, message: "Feed Uploaded" });
 };
 
+const updateLike =  async (req, res) => {
+  let updateLikes = await Feeds.updateOne({_id: req.body.feed_id},{$inc: { feed_likes: 1 }});
+  if (!updateLikes)
+  return res.status(200).json({ status: 400, message: "Likes Not Uploaded" });
+
+res.status(200).json({ status: 200, message: "Like Increased" });
+}
 module.exports = {
   uploadFeed,
   getFeeds,
   deleteFeed,
   updateFeed,
   updateDeleteImg,
+  updateLike,
 };

@@ -35,6 +35,8 @@ const Post = ({
   username,
   timestamp,
   message,
+  likes,
+  handleLikes,
   getFeedData,
   handleImageDelete,
 }) => {
@@ -184,9 +186,11 @@ const Post = ({
           {ShowImages(image)}
         </div>
       </div>
-
+      <div className="statsOptions">
+          <ThumbUpIcon /> <p>{likes}</p>
+      </div>
       <div className="post__options">
-        <div className="post__option">
+        <div className="post__option" onClick={() => handleLikes(id)}>
           <ThumbUpIcon />
           <p>Like</p>
         </div>
