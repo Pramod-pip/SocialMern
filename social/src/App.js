@@ -6,11 +6,12 @@ import Feed from "./pages/Feed/Feed";
 import "./App.css";
 
 function App() {
+  const isUserLogin = localStorage.getItem('User');
   return (
     <Router>
       <div className="app">
         <Routes>
-          <Route path="/" element={<Login />}></Route>
+          <Route path="/" element={<Login  isUserLogin={isUserLogin} />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/feed" element={<Feed />}></Route>
         </Routes>

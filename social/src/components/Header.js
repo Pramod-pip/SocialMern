@@ -12,13 +12,17 @@ import { Avatar, IconButton ,Button,
   Modal,
   Box, } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const Header = (props) => {
   const user  = {};
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState([]);
   const [message, setMessage] = useState('');
+  const userEmail = localStorage.getItem('User');
+  const navigate = useNavigate();
 
   const handleFileChange = (event) => {
     setFiles(event.target.files);
@@ -36,7 +40,7 @@ const Header = (props) => {
       formData.append('images', files[i]);
     }
     formData.append('message', message);
-    formData.append('email', 'pramodkoppu@gmail.com');
+    formData.append('email', userEmail);
 
     try {
       await axios.post('http://localhost:5000/api/feeds', formData, {
@@ -59,6 +63,11 @@ const Header = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleLogout = () => {
+    localStorage.clear('User');
+    navigate('/');
+  }
 
   return (
     <div className="header">
@@ -94,6 +103,9 @@ const Header = (props) => {
       <div className="header__right__icons">
           <IconButton onClick={handleOpen}>
             <AddIcon />
+          </IconButton>
+          <IconButton onClick={handleLogout}>
+            <LogoutIcon />
           </IconButton>
         </div>
 

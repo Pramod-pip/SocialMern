@@ -19,11 +19,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
-const Login = () => {
+const Login = ({isUserLogin}) => {
   const [errors, setErrors] = useState("");
 
   useEffect(()=> {
-    if(localStorage.getItem('User')){
+    if(isUserLogin){
       navigate("/feed");
     }
   })
