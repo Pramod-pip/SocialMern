@@ -45,6 +45,7 @@ const Post = ({
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState([]);
   const [mess, setMess] = useState(message);
+  const userEmailStored = localStorage.getItem('User');
 
   const handleFileChange = (event) => {
     setFiles(event.target.files);
@@ -64,7 +65,7 @@ const Post = ({
     }
     formData.append("message", mess);
     formData.append("feed_id", id);
-    formData.append("email", "pramodkoppu@gmail.com");
+    formData.append("email", userEmailStored);
 
     try {
       await axios.post("http://localhost:5000/api/feeds/updateFeed", formData, {
@@ -128,7 +129,8 @@ const Post = ({
         <div className="post__topInfo">
           <h3>{username}</h3>
         </div>
-        <div className="morevert">
+        { userEmailStored === username &&
+          <div className="morevert">
           <IconButton
             aria-controls="post-menu"
             aria-haspopup="true"
@@ -157,6 +159,7 @@ const Post = ({
             </MenuItem>
           </Menu>
         </div>
+        }
       </div>
       <Dialog open={isDialogOpen} onClose={handleDialogClose}>
         <DialogTitle>Confirm Delete</DialogTitle>

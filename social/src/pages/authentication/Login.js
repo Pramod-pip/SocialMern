@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
 import {
   TextField,
@@ -22,6 +22,12 @@ const defaultTheme = createTheme();
 const Login = () => {
   const [errors, setErrors] = useState("");
 
+  useEffect(()=> {
+    if(localStorage.getItem('User')){
+      navigate("/feed");
+    }
+  })
+
   const navigate = useNavigate();
 
   const initialValues = {
@@ -44,6 +50,7 @@ const Login = () => {
     if (resData.status !== 200) {
       setErrors(resData.message);
     } else {
+      localStorage.setItem('User', resData.user)
       navigate("/feed");
     }
   };
