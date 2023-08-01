@@ -4,17 +4,12 @@ import Post from "../../components/Post";
 import Header from "../../components/Header";
 import { getFeeds, updateLikeApi } from '../../apis/FeedAPI';
 import { deleteImgFeed } from '../../apis/FeedAPI';
-import { useNavigate } from 'react-router-dom';
 
 const Feed = () => {
 
   const [Feedsdata, setFeedsData] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if(localStorage.getItem('User')){
-      navigate("/");
-    }
      getFeedData();
   },[]);
 
