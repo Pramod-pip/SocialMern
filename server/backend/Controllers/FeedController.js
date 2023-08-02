@@ -46,7 +46,7 @@ const updateFeed = async (req, res) => {
     feed_message: req.body.message,
     feed_images: filnames,
     feed_likes: feedDelete.feed_likes,
-    feed_comments: "",
+    feed_comments: feedDelete.feed_comments,
   };
   feed = await Feeds.findByIdAndUpdate(req.body.feed_id, feed, {
     new: true,

@@ -14,6 +14,7 @@ import {
   Grid,
   Modal,
   Box,
+  Divider
 } from "@mui/material";
 import "./Post.css";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -27,6 +28,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { deleteFeed } from "../apis/FeedAPI";
 import axios from "axios";
 import { ShowImages } from "./ShowImages";
+import { Comments } from "./Comments";
 
 const Post = ({
   id,
@@ -37,6 +39,7 @@ const Post = ({
   message,
   likes,
   comments,
+  handleComments,
   handleLikes,
   getFeedData,
   handleImageDelete,
@@ -44,8 +47,11 @@ const Post = ({
   const [anchorEl, setAnchorEl] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openComments, setOpenComments] = useState(false);
+  const [showComments, setShowComments] = useState(false);
   const [files, setFiles] = useState([]);
   const [mess, setMess] = useState(message);
+  const [comment, setComment] = useState('');
   const userEmailStored = localStorage.getItem('User');
 
   const handleFileChange = (event) => {
@@ -54,6 +60,10 @@ const Post = ({
 
   const handleMessageChange = (event) => {
     setMess(event.target.value);
+  };
+
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -87,10 +97,18 @@ const Post = ({
     setOpen(true);
   };
 
+  const handleCommentsOpen = () => {
+    setAnchorEl(null);
+    setOpenComments(true);
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
 
+  const handleCloseComments = () => {
+    setOpenComments(false);
+  }
   
 
   const handleDialogOpen = () => {
@@ -122,10 +140,13 @@ const Post = ({
     handleDialogClose();
   };
 
+  const handleCommentSubmit = () => {
+    handleComments(id, username, comment);
+  }
+
  
   return (
     <div className="post">
-      {console.log('comments', comments.length)}
       <div className="post__top">
         <Avatar src={profilePic} className="post__avatar" />
         <div className="post__topInfo">
@@ -193,13 +214,21 @@ const Post = ({
       </div>
       <div className="statsOptions">
           <ThumbUpIcon /> <p>{likes}</p>
+          <div style={{paddingLeft:'1rem', display: 'flex'}}>
+            <ChatBubbleOutlineIcon  onClick={() => setShowComments(!showComments)}/> 
+            <p>{comments.length}</p>
+            </div>
       </div>
+      {showComments && <>
+        <Divider/>
+      <Comments commentsData={comments}/>
+      </>}
       <div className="post__options">
         <div className="post__option" onClick={() => handleLikes(id)}>
           <ThumbUpIcon />
           <p>Like</p>
         </div>
-        <div className="post__option">
+        <div className="post__option" onClick={() => handleCommentsOpen()}>
           <ChatBubbleOutlineIcon />
           <p>Comment</p>
         </div>
@@ -260,6 +289,39 @@ const Post = ({
                   </div>
                 ))}
               </div>
+              <Grid item xs={12}>
+                <Button variant="contained" color="primary" type="submit">
+                  Submit
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </Box>
+      </Modal>
+      <Modal open={openComments} onClose={handleCloseComments}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <form onSubmit={handleCommentSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography variant="h6">Enter your message:</Typography>
+                <TextField
+                  value={comment}
+                  onChange={handleCommentChange}
+                  fullWidth
+                  multiline
+                  rows={4}
+                />
+              </Grid>
               <Grid item xs={12}>
                 <Button variant="contained" color="primary" type="submit">
                   Submit
