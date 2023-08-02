@@ -18,8 +18,8 @@ const feedSchema = new mongoose.Schema({
         default: 0,
     },
     feed_comments:{
-        type: String,
-        default: '',
+        type: Array,
+        default: []
     }
 
 })

@@ -28,3 +28,9 @@ export const updateLikeApi = async (feed_id) => {
     return response.data;
   });
 };
+
+export const updateCommentsAPI = async (feed_id, email, comment) => {
+  return await axios.post(`${URL_API_FEEDS}comments`, {feed_id, email, comment}).then((response) => {
+    return response.data;
+  });
+};

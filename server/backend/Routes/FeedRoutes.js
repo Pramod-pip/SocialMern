@@ -1,5 +1,11 @@
 const express = require("express");
-const { uploadFeed, getFeeds, deleteFeed, updateFeed, updateDeleteImg, updateLike } = require("../Controllers/FeedController");
+const { uploadFeed, 
+  getFeeds, 
+  deleteFeed, 
+  updateFeed, 
+  updateDeleteImg, 
+  updateLike, 
+  updateComments } = require("../Controllers/FeedController");
 const multer = require("multer");
 const { Feeds } = require("../schema/feedSchema");
 
@@ -20,5 +26,6 @@ Router.route("/deleteFeed").post(deleteFeed);
 Router.route("/updateFeed").post(upload.array("images"), updateFeed);
 Router.route("/updateImgFeed").post(updateDeleteImg);
 Router.route("/like").post(updateLike);
+Router.route("/comments").post(updateComments);
 
 module.exports = Router;

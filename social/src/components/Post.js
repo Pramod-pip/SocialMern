@@ -36,6 +36,7 @@ const Post = ({
   timestamp,
   message,
   likes,
+  comments,
   handleLikes,
   getFeedData,
   handleImageDelete,
@@ -124,6 +125,7 @@ const Post = ({
  
   return (
     <div className="post">
+      {console.log('comments', comments.length)}
       <div className="post__top">
         <Avatar src={profilePic} className="post__avatar" />
         <div className="post__topInfo">

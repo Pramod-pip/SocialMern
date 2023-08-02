@@ -10,7 +10,7 @@ const uploadFeed = async (req, res) => {
     feed_message: req.body.message,
     feed_images: filnames,
     feed_likes: 0,
-    feed_comments: "",
+    feed_comments: [],
   });
   feed = await feed.save();
 
@@ -69,6 +69,18 @@ const updateDeleteImg =  async (req, res) => {
   res.status(200).json({ status: 200, message: "Feed Uploaded" });
 };
 
+const updateComments =  async (req, res) => {
+  let addComment = await Feeds.findById(req.body.feed_id);
+  addComment.feed_comments.push({"email": req.body.email, "comment": req.body.comment})
+  addComment = await Feeds.findByIdAndUpdate(req.body.feed_id, addComment, {
+    new: true,
+  })
+  if (!addComment)
+    return res.status(200).json({ status: 400, message: "Comment Not Uploaded" });
+
+  res.status(200).json({ status: 200, message: "Comment Uploaded" });
+};
+
 const updateLike =  async (req, res) => {
   let updateLikes = await Feeds.updateOne({_id: req.body.feed_id},{$inc: { feed_likes: 1 }});
   if (!updateLikes)
@@ -83,4 +95,5 @@ module.exports = {
   updateFeed,
   updateDeleteImg,
   updateLike,
+  updateComments,
 };
